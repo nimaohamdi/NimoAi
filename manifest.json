@@ -1,0 +1,16 @@
+{
+    "name": "Nimo AI",
+    "short_name": "NimoAI",
+    "description": "Modern AI Chat Interface",
+    "start_url": "/NimoAi/",
+    "display": "standalone",
+    "background_color": "#0a0a0f",
+    "theme_color": "#e50914",
+    "icons": [
+        {
+            "src": "assets/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ]
+}

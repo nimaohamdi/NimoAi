@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nimo AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="logo-container">
+                <div class="logo">Nimo<span>AI</span></div>
+                <div class="version">v2.3</div>
+            </div>
+
+            <div class="user-profile" id="user-profile">
+                <div class="avatar" id="avatar">👤</div>
+                <div class="user-info">
+                    <div id="display-name">Guest</div>
+                    <div id="display-email">Sign in to sync chats</div>
+                </div>
+            </div>
+
+            <button class="new-chat-btn" id="new-chat">
+                <i class="fas fa-plus"></i> New Chat
+            </button>
+
+            <div class="chat-list" id="chat-list"></div>
+        </div>
+
+        <!-- Main Chat Area -->
+        <div class="main">
+            <div class="top-bar">
+                <button class="hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+                <h2 id="current-chat-title">Nimo AI</h2>
+                
+                <div class="top-actions">
+                    <button id="settings-btn" title="Settings"><i class="fas fa-cog"></i></button>
+                    <button id="auth-btn" title="Account"><i class="fas fa-user-circle"></i></button>
+                </div>
+            </div>
+
+            <div class="chat-area" id="chat-area"></div>
+
+            <div class="input-container">
+                <textarea id="user-input" rows="1" placeholder="Type your message..."></textarea>
+                <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="settings-modal">
+        <div class="modal-content">
+            <h3>Settings</h3>
+            <label>API Key</label>
+            <input type="password" id="api-token" placeholder="sk-...">
+            
+            <label>Model</label>
+            <select id="model-select">
+                <option value="gpt-4o">GPT-4o</option>
+                <option value="gpt-4o-mini">GPT-4o-mini</option>
+            </select>
+            
+            <button id="save-settings">Save Settings</button>
+            <button onclick="closeSettingsModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

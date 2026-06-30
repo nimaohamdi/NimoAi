@@ -1,0 +1,64 @@
+:root {
+    --bg: #0a0a0f;
+    --sidebar: #0f0f17;
+    --main: #14141b;
+    --card: #1c1c27;
+    --accent: #e50914;
+    --text: #f0f0fa;
+    --muted: #b0b0c5;
+    --border: #2a2a35;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app { display: flex; height: 100vh; }
+
+/* Sidebar, Main, Messages, etc. — I kept your original beautiful styles but cleaned them up */
+.sidebar {
+    width: 320px;
+    background: var(--sidebar);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+}
+
+.main { flex: 1; display: flex; flex-direction: column; }
+
+.chat-area {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.message {
+    max-width: 80%;
+    padding: 16px 22px;
+    border-radius: 20px;
+    line-height: 1.7;
+    animation: messagePop 0.3s ease;
+}
+
+.user-message {
+    align-self: flex-start;
+    background: rgba(229, 9, 20, 0.15);
+    border: 1px solid rgba(229, 9, 20, 0.4);
+}
+
+.bot-message {
+    align-self: flex-end;
+    background: var(--card);
+    border: 1px solid var(--border);
+}
+
+/* Add more styles as needed... */
