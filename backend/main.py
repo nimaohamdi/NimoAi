@@ -1,12 +1,14 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-import httpx
+
 from config import settings
+from api.chat import router as chat_router
 
-app = FastAPI(title=settings.APP_NAME, version=settings.VERSION)
+app = FastAPI(
+    title=settings.APP_NAME,
+    version=settings.VERSION
+)
 
-# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.ALLOWED_ORIGINS,
@@ -15,33 +17,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class ChatRequest(BaseModel):
-    messages: list
-    model: str = "gpt-4o"
-    stream: bool = True
+app.include_router(
+    chat_router,
+    prefix="/api",
+    tags=["Chat"]
+)
 
-@app.post("/api/chat")
-async def chat_completion(request: ChatRequest):
-    try:
-        async with httpx.AsyncClient() as client:
-            response = await client.post(
-                "https://api.gapgpt.app/v1/chat/completions",  # یا هر پراکسی که می‌خوای
-                json={
-                    "model": request.model,
-                    "messages": request.messages,
-                    "stream": request.stream
-                },
-                headers={"Authorization": f"Bearer {YOUR_API_KEY}"},  # از env بخون
-                timeout=120.0
-            )
-            return response.json()
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/health")
 async def health():
-    return {"status": "healthy", "app": settings.APP_NAME}
+
+    return {
+        "status": "healthy",
+        "version": settings.VERSION
+    }
+
 
 if __name__ == "__main__":
+
     import uvicorn
-    uvicorn.run(app, host=settings.API_HOST, port=settings.API_PORT)
+
+    uvicorn.run(
+        app,
+        host=settings.API_HOST,
+        port=settings.API_PORT
+    )
