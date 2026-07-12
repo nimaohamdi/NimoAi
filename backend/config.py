@@ -44,5 +44,7 @@ class Settings(BaseSettings):
         extra="ignore"
     )
 
+DEFAULT_PROVIDER: str = "gapgpt"
+DEFAULT_MODEL: str = "gpt-4o-mini"
 
 settings = Settings()

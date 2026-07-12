@@ -1,12 +1,13 @@
 import httpx
 
 from config import settings
-from core.logger import logger
+from schemas.chat import ChatRequest
+from providers.base import BaseProvider
 
 
-class LLMService:
+class GapGPTProvider(BaseProvider):
 
-    async def chat(self, request):
+    async def chat(self, request: ChatRequest):
 
         async with httpx.AsyncClient(
             timeout=settings.REQUEST_TIMEOUT
@@ -14,22 +15,19 @@ class LLMService:
 
             response = await client.post(
                 f"{settings.BASE_URL}/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {settings.API_KEY}"
+                },
                 json={
                     "model": request.model,
                     "messages": [
-                        m.model_dump()
-                        for m in request.messages
+                        message.model_dump()
+                        for message in request.messages
                     ],
                     "stream": request.stream
-                },
-                headers={
-                    "Authorization": f"Bearer {settings.API_KEY}"
                 }
             )
 
             response.raise_for_status()
 
             return response.json()
-
-
-llm_service = LLMService()
